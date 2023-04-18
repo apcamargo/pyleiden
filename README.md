@@ -1,11 +1,18 @@
 # pyLeiden
 
-A CLI tool for clustering with the Leiden algorithm.
+A CLI tool for clustering with the [Leiden](https://www.nature.com/articles/s41598-019-41695-z) algorithm.
 
 ## Installation
 
 ```bash
+# pip:
 pip install pyleiden
+# pipx:
+pipx install pyleiden
+# conda:
+conda install -c conda-forge pyleiden
+# mamba:
+mamba install -c conda-forge pyleiden
 ```
 
 ## Options
