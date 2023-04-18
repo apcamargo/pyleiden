@@ -1,0 +1,18 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pyleiden"
+authors = [{name = "Antonio Camargo", email = "antoniop.camargo@gmail.com"}]
+license = {file = "LICENSE"}
+readme = "README.md"
+classifiers = ["License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]
+dynamic = ["version", "description"]
+dependencies = ["igraph >=0.10.3"]
+
+[project.urls]
+Home = "https://github.com/apcamargo/pyleiden"
+
+[project.scripts]
+pyleiden = "pyleiden.pyleiden:main"
