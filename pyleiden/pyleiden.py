@@ -97,7 +97,7 @@ def cluster_graph(
     )
 
 
-def write_clusters(output_file, clusters):
+def write_clusters(output_file, graph, clusters):
     cluster_members = defaultdict(list)
     for i, m in enumerate(clusters.membership):
         cluster_members[m].append(i)
@@ -105,10 +105,9 @@ def write_clusters(output_file, clusters):
         for m in sorted(
             cluster_members, key=lambda i: len(cluster_members[i]), reverse=True
         ):
-            members = "\t".join(
-                [clusters.graph.vs[i]["name"] for i in cluster_members[m]]
-            )
-            fout.write(f"{members}\n")
+            subgraph = graph.subgraph(cluster_members[m])
+            members = sorted(subgraph.vs, key=lambda i: i.degree(), reverse=True)
+            fout.write("\t".join([i["name"] for i in members]) + "\n")
 
 
 def main():
@@ -133,7 +132,7 @@ def main():
     )
     if not args.quiet:
         print("[3/3] Writing output file.")
-    write_clusters(args.OUTPUT, clusters)
+    write_clusters(args.OUTPUT, graph, clusters)
     if not args.quiet:
         print(f"Total number of nodes: {len(graph.vs):,}")
         print(f"Total number of clusters: {len(clusters):,}")
