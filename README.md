@@ -75,7 +75,7 @@ curl -L https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/plsdb.fna
 Next, we will estimate the ANI and AF between pairs of plasmids with [skani](https://github.com/bluenote-1577/skani):
 
 ```bash
-skani dist -t 16 -c 80 -s 70 --qi plsdb.fna --ri plsdb.fna -o skani_output.tsv
+skani dist -t 16 -c 30 -s 70 --qi plsdb.fna --ri plsdb.fna -o skani_output.tsv
 ```
 
 skani's output will look like this:
