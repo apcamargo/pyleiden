@@ -68,14 +68,14 @@ First we download the plasmid DNA sequences from PLSDB and use [SeqKit](https://
 
 ```bash
 curl -L https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/plsdb.fna.bz2 \
-    | seqkit seq --only-id --upper-case --min-len 2500 \
+    | seqkit seq --remove-gaps --only-id --upper-case --min-len 2500 \
     > plsdb.fna
 ```
 
 Next, we will estimate the ANI and AF between pairs of plasmids with [skani](https://github.com/bluenote-1577/skani):
 
 ```bash
-skani triangle -t 16 --sparse -i -m 150 -c 30 -s 70 plsdb.fna > skani_output.tsv
+skani triangle -t 16 --diagonal --sparse -i -m 150 -c 30 -s 70 plsdb.fna > skani_output.tsv
 ```
 
 skani's output will look like this:
