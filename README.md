@@ -104,19 +104,13 @@ To generate the input file for pyLeiden from skani's output we can use `awk`:
 awk 'NR>1 && $3>=95 && ($4>=85 || $5>=85) {
     printf("%s\t%s\t%.4f\n", $6, $7, $3 * ($4 > $5 ? $4 : $5) / 10000)
 }' skani_output.tsv > edges.tsv
-
-seqkit fx2tab -ni plsdb.fna | awk '{
-    print $1"\t"$1"\t1.0000"
-}' >> edges.tsv
 ```
 
-The first command:
+This command will:
 
-1. Removes the header from skani's output.
-2. Filters out edges that do not meet the minimum ANI or AF criteria (ANI ≥ 95% and AF ≥ 85%).
-3. Computes edge weights with the formula: $Weight = \frac{ANI \times \max(AF_{query}, AF_{target})}{10000}$.
-
-The second command adds "self-hits" (edges connecting genomes to themselves) to ensure all genomes are present in the graph.
+1. Remove the header from skani's output.
+2. Filter out edges that do not meet the minimum ANI or AF criteria (ANI ≥ 95% and AF ≥ 85%).
+3. Compute edge weights using the formula: $Weight = \frac{ANI \times \max(AF_{query}, AF_{target})}{10000}$.
 
 The `edges.tsv` file will look like this:
 
