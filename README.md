@@ -5,6 +5,8 @@ A CLI tool for clustering with the [Leiden](https://www.nature.com/articles/s415
 ## Installation
 
 ```bash
+# pixi
+pixi global -c conda-forge install pyleiden
 # pip:
 pip install pyleiden
 # pipx:
