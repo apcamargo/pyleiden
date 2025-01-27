@@ -69,7 +69,7 @@ To showcase the pyLeiden's functionality, we will cluster plasmid sequences retr
 First we download the plasmid DNA sequences from PLSDB and use [SeqKit](https://github.com/shenwei356/seqkit) to format the FASTA file by leaving only the sequence accessions in the headers:
 
 ```bash
-curl -L https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/plsdb.fna.bz2 \
+curl -L https://ccb-microbe.cs.uni-saarland.de/plsdb2025/download_fasta \
     | seqkit seq --remove-gaps --only-id --upper-case --min-len 2500 \
     > plsdb.fna
 ```
