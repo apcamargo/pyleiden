@@ -7,10 +7,10 @@ A CLI tool for clustering with the [Leiden](https://www.nature.com/articles/s415
 ```bash
 # pixi
 pixi global -c conda-forge install pyleiden
+# uv
+uv tool install pyleiden
 # pip:
 pip install pyleiden
-# pipx:
-pipx install pyleiden
 # conda:
 conda install -c conda-forge pyleiden
 # mamba:
