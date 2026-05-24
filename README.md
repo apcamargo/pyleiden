@@ -28,8 +28,8 @@ pyLeiden: a CLI tool for clustering with the Leiden algorithm.
 
 positional arguments:
   INPUT                 Tabular file containing the edges of the network.
-                        The first two columns should be elelemnts that
-                        are connected via an edge in the graph. A third
+                        The first two columns should be nodes that are
+                        connected via an edge in the graph. A third
                         column may be provided with numerical values that
                         represent the weight of the edge.
   OUTPUT                Cluster membership. Each line contains all the

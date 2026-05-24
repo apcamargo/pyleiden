@@ -1,9 +1,11 @@
 import argparse
 import pathlib
-import sys
 import random
-import igraph as ig
+import sys
 from collections import defaultdict
+
+import igraph as ig
+
 import pyleiden
 
 
@@ -19,7 +21,7 @@ def parse_cli():
         "INPUT",
         type=pathlib.Path,
         help="""Tabular file containing the edges of the network. The first two columns
-                should be elelemnts that are connected via an edge in the graph. A third
+                should be nodes that are connected via an edge in the graph. A third
                 column may be provided with numerical values that represent the weight of
                 the edge.""",
     )
@@ -64,6 +66,13 @@ def parse_cli():
                 increased during that iteration).""",
     )
     parser.add_argument(
+        "--tsv",
+        action="store_true",
+        help="""Write the output as a tabular file in which each line contains the node
+                name and the cluster it belongs to, separated by a tab.""",
+
+    )
+    parser.add_argument(
         "-s",
         "--seed",
         default=1953,
@@ -97,7 +106,7 @@ def cluster_graph(
     )
 
 
-def write_clusters(output_file, graph, clusters):
+def write_clusters(output_file, graph, clusters, tsv=False):
     cluster_members = defaultdict(list)
     for i, m in enumerate(clusters.membership):
         cluster_members[m].append(i)
@@ -107,7 +116,11 @@ def write_clusters(output_file, graph, clusters):
         ):
             subgraph = graph.subgraph(cluster_members[m])
             members = sorted(subgraph.vs, key=lambda i: i.degree(), reverse=True)
-            fout.write("\t".join([i["name"] for i in members]) + "\n")
+            if tsv:
+                for i in members:
+                    fout.write(f"{i['name']}\t{m}\n")
+            else:
+                fout.write("\t".join([i["name"] for i in members]) + "\n")
 
 
 def main():
@@ -132,7 +145,7 @@ def main():
     )
     if not args.quiet:
         print("[3/3] Writing output file.")
-    write_clusters(args.OUTPUT, graph, clusters)
+    write_clusters(args.OUTPUT, graph, clusters, args.tsv)
     if not args.quiet:
         print(f"Total number of nodes: {len(graph.vs):,}")
         print(f"Total number of clusters: {len(clusters):,}")
